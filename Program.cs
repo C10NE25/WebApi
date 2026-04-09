@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +11,23 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+// This shows your list of products in the interface
+app.MapGet("/api/products", async (DataContext context) => 
+    await context.products.ToListAsync());
+
+// This allows you to add a new product through the interface
+app.MapPost("/api/products", async (DataContext context, WebApi.Models.Product product) => 
+{
+    context.products.Add(product);
+    await context.SaveChangesAsync();
+    return Results.Created($"/api/products/{product.id}", product);
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
