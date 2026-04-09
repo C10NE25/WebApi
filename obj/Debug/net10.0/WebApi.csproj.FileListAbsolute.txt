@@ -31,3 +31,4 @@
 /home/fedora/Downloads/WebApi/WebApi/obj/Debug/net10.0/WebApi.pdb
 /home/fedora/Downloads/WebApi/WebApi/obj/Debug/net10.0/WebApi.genruntimeconfig.cache
 /home/fedora/Downloads/WebApi/WebApi/obj/Debug/net10.0/ref/WebApi.dll
+/home/fedora/Downloads/WebApi/WebApi/obj/Debug/net10.0/WebApi.sourcelink.json
