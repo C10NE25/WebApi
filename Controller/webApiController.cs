@@ -17,7 +17,7 @@ namespace WebApi.Controller
         }
 
         [HttpPost]
-        public JsonResult CreateEdit(Product product)
+        public IActionResult CreateEdit(Product product)
         {
             if(product.id == 0)
             {
@@ -26,14 +26,19 @@ namespace WebApi.Controller
             else
             {
                 var productInDatabase = _context.products.Find(product.id);
-                if(productInDatabase == null)
-                    return new JsonResult(NotFound());
+                if(productInDatabase == null) return NotFound();
 
-                productInDatabase = product;
+                productInDatabase.name = product.name;
+                productInDatabase.price = product.price;
             }
             _context.SaveChanges();
 
-            return new JsonResult(Ok(product));
+            return Ok(product);
+        }
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_context.products.ToList());
         }
     }
 }
